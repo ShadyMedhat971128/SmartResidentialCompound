@@ -1,0 +1,79 @@
+/*
+ * TIMER.c
+ *
+ * Created: 3/9/2022 8:42:19 PM
+ *  Author: youss
+ */ 
+
+
+#include "TIMER.h"
+
+void TIMER1_INIT_IN_CAPTURE_MODE(uint8 MODE)
+{
+	//sei();
+	SET_BIT(S_REG,I);
+	SET_BIT(TIMSK,INPUT_CAPTURE_INTERRUPT_ENABLE_PIN);
+	TCCR1A=0;
+	TIMER1_IN_CAPTURE_MODE(MODE);
+	PRESCALE_TIMER1(NO_PRESCALER);
+}
+void TIMER1_IN_CAPTURE_MODE(uint8 MODE)
+{
+	switch(MODE)
+	{
+		case FALLING_EDGE_MODE:
+		CLEAR_BIT(TCCR1B,ICES1);
+		break;
+		case RISING_EDGE_MODE:
+		SET_BIT(TCCR1B,ICES1);
+		break;
+	}
+}
+void TIMER1_INIT_OF_MODE()
+{
+	SET_BIT(S_REG,I);
+	SET_BIT(TIMSK,TOIE1);/* Enable Timer1 overflow interrupts */
+	TCCR1A = 0;			 /* Set all bit to zero Normal operation */
+	PRESCALE_TIMER1(NO_PRESCALER);
+}
+void PRESCALE_TIMER1(uint8 PRESCALE)
+{
+	// use CS12 CS11 CS10 in TCCR1B
+	switch(PRESCALE)
+	{
+		case NO_CLOCK:
+		CLEAR_BIT(TCCR1B,CS12); // 0
+		CLEAR_BIT(TCCR1B,CS11); // 0
+		CLEAR_BIT(TCCR1B,CS10); // 0
+		break;
+		case PRESCALER_8:
+		CLEAR_BIT(TCCR1B,CS12);		// 0
+		SET_BIT(TCCR1B,CS11);		// 1
+		CLEAR_BIT(TCCR1B,CS10);		// 0
+		break;
+		case PRESCALER_64:
+		CLEAR_BIT(TCCR1B,CS12);		// 0
+		SET_BIT(TCCR1B,CS11);		// 1
+		SET_BIT(TCCR1B,CS10);		// 1
+		break;
+		case PRESCALER_256:
+		SET_BIT(TCCR1B,CS12);		// 1
+		CLEAR_BIT(TCCR1B,CS11);		// 0
+		CLEAR_BIT(TCCR1B,CS10);		// 0
+		break;
+		case PRESCALER_1024:
+		SET_BIT(TCCR1B,CS12);		// 1
+		CLEAR_BIT(TCCR1B,CS11);		// 0
+		SET_BIT(TCCR1B,CS10);		// 1
+		break;
+		case NO_PRESCALER:
+		default:
+		CLEAR_BIT(TCCR1B,CS12);		// 0
+		CLEAR_BIT(TCCR1B,CS11);		// 0
+		SET_BIT(TCCR1B,CS10);		// 1
+		
+		break;
+		//STILL THERE IS AN EXTERNAL SOURCE TO USE
+	}
+	
+}

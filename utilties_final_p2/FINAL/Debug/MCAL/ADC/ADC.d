@@ -1,0 +1,10 @@
+MCAL/ADC/ADC.d MCAL/ADC/ADC.o: ../MCAL/ADC/ADC.c ../APP/LIB/BIT_MATH.h \
+ ../MCAL/ATmega32_Register.h ../APP/LIB/STD_TYPES.h ../MCAL/ADC/ADC.h
+
+../APP/LIB/BIT_MATH.h:
+
+../MCAL/ATmega32_Register.h:
+
+../APP/LIB/STD_TYPES.h:
+
+../MCAL/ADC/ADC.h:

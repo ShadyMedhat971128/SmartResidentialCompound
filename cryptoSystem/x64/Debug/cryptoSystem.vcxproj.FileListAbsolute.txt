@@ -1,0 +1,2 @@
+S:\5-th year\final project work\crypto system\cryptoSystem\x64\Debug\cryptoSystem.exe
+S:\5-th year\Smart Compund\cryptoSystem\x64\Debug\cryptoSystem.exe
